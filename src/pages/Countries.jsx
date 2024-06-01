@@ -1,29 +1,29 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {useCityApi} from "../api/useCityApi";
+import {useCountryApi} from "../api/useCountryApi";
 import {Link} from "react-router-dom";
 
-const Cities = () => {
-    const api = useCityApi();
-    const [cities, setCities] = useState(null);
+const Countries = () => {
+    const api = useCountryApi();
+    const [countries, setCountries] = useState(null);
 
     useEffect(() => {
-        fetchCities().then();
+        fetchCountries().then();
     }, []);
 
-    const fetchCities = useCallback(async () => {
+    const fetchCountries = useCallback(async () => {
         try {
-            const res = await api.getCities();
-            setCities(res);
+            const res = await api.getCountries();
+            setCountries(res);
         } catch (e) {
             console.log(e);
         }
     }, []);
 
     return <div className={"flex flex-col h-screen my-auto items-center"}>
-        <div className={"flex text-2xl pb-4"}>Cities</div>
+        <div className={"flex text-2xl pb-4"}>Countries</div>
         <ul className={"text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg"}>
             {
-                cities ? cities.map((item) => {
+                countries ? countries.map((item) => {
                     return <li
                         className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg">
                         <Link to={`view/${item.name.official}`}
@@ -37,4 +37,4 @@ const Cities = () => {
         </ul>
     </div>
 }
-export default Cities;
+export default Countries;

@@ -1,24 +1,24 @@
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useCallback, useEffect, useState} from "react";
-import {useCityApi} from "../api/useCityApi";
+import {useCountryApi} from "../api/useCountryApi";
 import {Preloader} from "../components/Preloader";
 import {ButtonWithIcon} from "../components/ButtonWithIcon";
 import {faArrowLeftLong} from '@fortawesome/free-solid-svg-icons';
 
-const ViewCity = () => {
+const ViewCountry = () => {
     const {name} = useParams();
-    const api = useCityApi();
-    const [city, setCity] = useState(null);
+    const api = useCountryApi();
+    const [country, setCountry] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchCity(name).then();
+        fetchCountry(name).then();
     }, []);
 
-    const fetchCity = useCallback(async (name) => {
+    const fetchCountry = useCallback(async (name) => {
         try {
-            const res = await api.getCity(name);
-            setCity(res[0]);
+            const res = await api.getCountry(name);
+            setCountry(res[0]);
         } catch (e) {
             console.log(e);
         }
@@ -27,12 +27,12 @@ const ViewCity = () => {
     return <div className={'w-full max-w-lg px-10 py-8'}>
         <div className={"max-w-md mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow"}>
             {
-                city ?
+                country ?
                     <div className={'grid'}>
-                        <div>City name: {city.name.common}</div>
-                        <div>Flag: {city.flag}</div>
-                        <div>Capitol: {city.capital}</div>
-                        <div>Timezone: {city.timezones}</div>
+                        <div>Country name: {country.name.common}</div>
+                        <div>Flag: {country.flag}</div>
+                        <div>Capitol: {country.capital}</div>
+                        <div>Timezone: {country.timezones}</div>
                     </div>
                     : <Preloader/>
             }
@@ -42,4 +42,4 @@ const ViewCity = () => {
         </div>
     </div>
 }
-export default ViewCity;
+export default ViewCountry;
